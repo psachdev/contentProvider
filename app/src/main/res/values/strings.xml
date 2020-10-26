@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">ContentProviderSample</string>
+    <string name="sample_content_provider">Sample content provider</string>
+    <string name="list_all_entries">List all entries</string>
+    <string name="list_first_entry">List first entry</string>
+
+
+    <string-array name="messages">
+        <item>Message 1</item>
+        <item>Message 2</item>
+        <item>Message 3</item>
+        <item>Message 4</item>
+        <item>Message 5</item>
+        <item>Message 6</item>
+        <item>Message 7</item>
+        <item>Message 8</item>
+    </string-array>
+
 </resources>
+
