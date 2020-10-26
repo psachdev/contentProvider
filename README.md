@@ -1,1 +1,1 @@
-# sampleAndroidProjects
+# Sample Content provider
