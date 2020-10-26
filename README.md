@@ -1,3 +1,3 @@
 # Sample Content provider
 
-### [Architectural diagram](../Content_provider_architecture.png)
+### [Architectural diagram](..//main/blob/Content_provider_architecture.png)
