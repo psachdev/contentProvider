@@ -18,8 +18,8 @@
         </activity>
         <provider
             android:name=".SampleContentProvider"
-            android:authorities="com.psachdev.contentprovidersample.SampleContentProvider.provider"
-            android:exported="false"/>
+            android:authorities="com.psachdev.contentprovidersample.samplecontentprovider"
+            android:exported="false" />
     </application>
 
 </manifest>

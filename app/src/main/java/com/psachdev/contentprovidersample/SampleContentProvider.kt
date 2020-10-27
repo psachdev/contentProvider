@@ -13,26 +13,27 @@ class SampleContentProvider : ContentProvider() {
     private val MATCH_ALL_MESSAGES = 1
     private val MATCH_MESSAGE_BY_ID = 2
 
-    private val MATCH_ALL_MESSAGES_PATH = "message"
-    private val MATCH_MESSAGE_BY_ID_PATH = "all_messages"
-
     private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
-    val AUTHORITY = BuildConfig.APPLICATION_ID + ".SampleContentProvider"
-    var CONTENT_ALL_MESSAGES_URI =
-        Uri.parse("content://$AUTHORITY/$MATCH_MESSAGE_BY_ID_PATH")
-    var CONTENT_MESSAGE_WITH_ID_URI =
-        Uri.parse("content://$AUTHORITY/$MATCH_ALL_MESSAGES_PATH")
+    companion object {
+        val MATCH_MESSAGE_BY_ID_PATH = "message"
+        val MATCH_ALL_MESSAGES_PATH = "all_messages"
+        val AUTHORITY = BuildConfig.APPLICATION_ID + ".samplecontentprovider"
+        var CONTENT_ALL_MESSAGES_URI =
+            Uri.parse("content://$AUTHORITY/$MATCH_ALL_MESSAGES_PATH")
+        var CONTENT_MESSAGE_WITH_ID_URI =
+            Uri.parse("content://$AUTHORITY/$MATCH_MESSAGE_BY_ID_PATH")
+    }
 
     override fun onCreate(): Boolean {
         uriMatcher.addURI(
-            AUTHORITY,
-            "message/#",
+            CONTENT_MESSAGE_WITH_ID_URI.authority,
+            MATCH_MESSAGE_BY_ID_PATH,
             MATCH_MESSAGE_BY_ID
         )
         uriMatcher.addURI(
             AUTHORITY,
-            "all_messages",
+            MATCH_ALL_MESSAGES_PATH,
             MATCH_ALL_MESSAGES
         )
         mData = context?.resources?.getStringArray(R.array.messages) as Array<String>
@@ -46,12 +47,13 @@ class SampleContentProvider : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        when (uriMatcher.match(uri)) {
+        val code = uriMatcher.match(uri)
+        when (code) {
             MATCH_ALL_MESSAGES -> {
                 return getCursor()
             }
             MATCH_MESSAGE_BY_ID -> {
-                val id = parseInt(uri.lastPathSegment!!)
+                val id = selectionArgs?.get(0)!!.toInt()
                 return getCursor(id)
             }
             else->{
@@ -88,7 +90,7 @@ class SampleContentProvider : ContentProvider() {
     }
 
     private fun getCursor(id: Int): Cursor {
-        val cursor = MatrixCursor(arrayOf("$MATCH_ALL_MESSAGES_PATH/$id"))
+        val cursor = MatrixCursor(arrayOf("$MATCH_MESSAGE_BY_ID_PATH/$id"))
 
         for (element in mData!!) {
             if(element.contains(id.toString())) {
@@ -100,7 +102,7 @@ class SampleContentProvider : ContentProvider() {
     }
 
     private fun getCursor(): Cursor {
-        val cursor = MatrixCursor(arrayOf("$MATCH_MESSAGE_BY_ID_PATH"))
+        val cursor = MatrixCursor(arrayOf("$MATCH_ALL_MESSAGES_PATH"))
 
         for (element in mData!!) {
             cursor.addRow(arrayOf<Any>(element))

@@ -38,4 +38,15 @@
         tools:layout_editor_absoluteX="255dp"
         tools:layout_editor_absoluteY="58dp" />
 
+    <TextView
+        android:id="@+id/dataFromContentProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/list_all_entries"
+        app:layout_constraintStart_toStartOf="@id/list_all_entries"
+        app:layout_constraintEnd_toEndOf="@id/list_first_entry"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
