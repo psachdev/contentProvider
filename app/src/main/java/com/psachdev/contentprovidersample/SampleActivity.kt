@@ -1,5 +1,6 @@
 package com.psachdev.contentprovidersample
 
+import android.content.ContentUris
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,7 +21,9 @@ class SampleActivity : AppCompatActivity() {
 
     fun onClickDisplayFirstEntry(view: View?) {
         Log.d(LOGGERTAG, "Display first entry.")
-        val querySingleMessageUri = SampleContentProvider.CONTENT_MESSAGE_WITH_ID_URI
+        val querySingleMessageUriBase = SampleContentProvider.CONTENT_MESSAGE_WITH_ID_URI
+        val querySingleMessageUri = ContentUris.withAppendedId(querySingleMessageUriBase, 1)
+
         val projection = arrayOf(SampleContentProvider.MATCH_MESSAGE_BY_ID_PATH + "/1")
         val selectionArgs = arrayOf("1")
         val sortOrder = null

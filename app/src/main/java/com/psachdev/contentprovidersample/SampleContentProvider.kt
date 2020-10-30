@@ -16,7 +16,7 @@ class SampleContentProvider : ContentProvider() {
     private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
     companion object {
-        val MATCH_MESSAGE_BY_ID_PATH = "message"
+        val MATCH_MESSAGE_BY_ID_PATH = "message/#"
         val MATCH_ALL_MESSAGES_PATH = "all_messages"
         val AUTHORITY = BuildConfig.APPLICATION_ID + ".samplecontentprovider"
         var CONTENT_ALL_MESSAGES_URI =
@@ -54,6 +54,7 @@ class SampleContentProvider : ContentProvider() {
             }
             MATCH_MESSAGE_BY_ID -> {
                 val id = selectionArgs?.get(0)!!.toInt()
+                val idFromUri = uri.lastPathSegment
                 return getCursor(id)
             }
             else->{
